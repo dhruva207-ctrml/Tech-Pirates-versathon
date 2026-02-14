@@ -4,42 +4,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinTech App</title>
+    <title>FinWise - Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Inline override for body background specific to dashboard -->
     <style>
-        .placeholder-content {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .placeholder-content i {
-            font-size: 60px;
-            color: var(--primary-color);
-            margin-bottom: 20px;
+        body {
+            background: #f4f7fa !important;
+            display: block;
+            padding: 0;
         }
     </style>
 </head>
 
-<body>
-    <div class="main-container" style="height: auto; min-height: 400px; flex-direction: column; padding: 40px;">
-        <div class="placeholder-content">
-            <i class="fas fa-tools"></i>
-            <h1>Work in Progress</h1>
-            <p>The dashboard is currently under construction. Check back soon!</p>
-            <br>
-            <button class="btn" onclick="logout()" style="max-width: 200px; margin: 0 auto;">Logout</button>
-        </div>
+<body class="dashboard-body">
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar animate delay-1">
+            <div class="logo-section">
+                <div class="logo-main">
+                    <i class="fas fa-wallet"></i>
+                    <span class="logo-text">FinWise</span>
+                </div>
+                <span class="user-welcome" id="sidebarUsername">Welcome, User</span>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Home</span>
+                </li>
+                <li class="nav-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-text">Transactions</span>
+                </li>
+                <li class="nav-item">
+                    <i class="fas fa-chart-pie"></i>
+                    <span class="nav-text">Budgets</span>
+                </li>
+                <li class="nav-item">
+                    <i class="fas fa-bullseye"></i>
+                    <span class="nav-text">Goals</span>
+                </li>
+                <li class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-text">Analytics</span>
+                </li>
+                <li class="nav-item">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span class="nav-text">Tax</span>
+                </li>
+            </ul>
+
+            <div class="pro-tip animate delay-2">
+                <h5>Pro Tip</h5>
+                <p>Mark expenses as tax deductible to track your potential savings.</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-area">
+
+            <!-- Metrics Row -->
+            <div class="overview-grid animate delay-2">
+                <!-- Card 1: Income -->
+                <div class="overview-card">
+                    <div class="card-info">
+                        <h4>Monthly Income</h4>
+                        <div class="amount" id="displayIncome">₹0.00</div>
+                    </div>
+                    <div class="icon-box icon-bg-green">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                </div>
+
+                <!-- Card 2: Expenses -->
+                <div class="overview-card">
+                    <div class="card-info">
+                        <h4>Monthly Expenses</h4>
+                        <div class="amount" id="displayExpenses">₹0.00</div>
+                    </div>
+                    <div class="icon-box icon-bg-red">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                </div>
+
+                <!-- Card 3: Net Cash Flow -->
+                <div class="overview-card">
+                    <div class="card-info">
+                        <h4>Net Cash Flow</h4>
+                        <div class="amount" id="displayCashFlow">₹0.00</div>
+                    </div>
+                    <div class="icon-box icon-bg-blue">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                </div>
+
+                <!-- Card 4: Total Savings -->
+                <div class="overview-card">
+                    <div class="card-info">
+                        <h4>Total Savings</h4>
+                        <div class="amount" id="displaySavings">₹0.00</div>
+                    </div>
+                    <div class="icon-box icon-bg-purple">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Grid (Transactions + Widgets) -->
+            <div class="dashboard-grid animate delay-3">
+
+                <!-- Left Column: Transactions -->
+                <div class="transactions-widget">
+                    <div class="section-header">
+                        <h3>Recent Transactions</h3>
+                        <i class="fas fa-ellipsis-h" style="color: #999; cursor: pointer;"></i>
+                    </div>
+
+                    <div class="transaction-list" id="transactionList">
+                        <!-- Transactions injected via JS -->
+                        <p style="text-align: center; color: #999; padding: 20px;">Loading transactions...</p>
+                    </div>
+                </div>
+
+                <!-- Right Column: Widgets -->
+                <div class="right-widgets">
+
+                    <!-- Budget Widget -->
+                    <div class="widget-card">
+                        <div class="widget-title">Budget Overview</div>
+                        <div class="empty-state">
+                            No budgets set for this month
+                        </div>
+                    </div>
+
+                    <!-- Goals Widget -->
+                    <div class="widget-card">
+                        <div class="widget-title">Savings Goals</div>
+                        <div class="empty-state">
+                            No savings goals yet
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
     </div>
 
     <script src="script.js"></script>
-    <script>
-        function logout() {
-            localStorage.removeItem('fintech_username');
-            localStorage.removeItem('fintech_user_email');
-            window.location.href = 'login.html';
-        }
-    </script>
 </body>
 
 </html>
