@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fintech Login</title>
+    <title>Fintech Sign Up</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -14,10 +14,10 @@
         <!-- Left Side: Visuals -->
         <div class="left-panel">
             <div class="left-content">
-                <i class="fas fa-chart-line" style="font-size: 50px; margin-bottom: 20px;"></i>
-                <h1>Welcome to FinSecure</h1>
-                <p>Experience the future of secure financial management. Join millions of users trusting us with their
-                    portfolio.</p>
+                <i class="fas fa-rocket" style="font-size: 50px; margin-bottom: 20px;"></i>
+                <h1>Start Your Journey</h1>
+                <p>Create an account today and take control of your financial future with smart analytics and security.
+                </p>
             </div>
         </div>
 
@@ -28,37 +28,32 @@
             </div>
 
             <div class="header-text animate delay-1">
-                <h2>Login</h2>
-                <p>Welcome back! Please enter your details.</p>
+                <h2>Create Account</h2>
+                <p>Get started with your free account today.</p>
             </div>
 
-            <form id="loginForm">
+            <form id="signupForm">
                 <div class="input-group animate delay-2">
                     <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="Enter your email" required>
+                    <input type="email" id="email" placeholder="name@company.com" required>
                 </div>
                 <div class="input-group animate delay-2">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="••••••••" required>
-                </div>
-                <div class="animate delay-2" style="text-align: right; margin-top: -15px; margin-bottom: 15px;">
-                    <a href="signup.html"
-                        style="font-size: 13px; color: var(--primary-color); text-decoration: none;">Don't have an
-                        account?</a>
+                    <input type="password" id="password" placeholder="Create a strong password" required>
                 </div>
 
-                <button type="submit" class="btn animate delay-3">Login</button>
+                <button type="submit" class="btn animate delay-3">Sign Up</button>
             </form>
 
             <div class="divider animate delay-3">OR</div>
 
-            <button class="btn google-btn animate delay-4" onclick="googleLogin('login')">
+            <button class="btn google-btn animate delay-4" onclick="googleLogin('signup')">
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
-                Login with Google
+                Sign up with Google
             </button>
 
             <p class="link-text animate delay-4">
-                Don't have an account? <a href="signup.html">Sign Up</a>
+                <a href="login.html">Already have an account? Log In</a>
             </p>
         </div>
     </div>

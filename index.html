@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTech App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .placeholder-content {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .placeholder-content i {
+            font-size: 60px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container" style="height: auto; min-height: 400px; flex-direction: column; padding: 40px;">
+        <div class="placeholder-content">
+            <i class="fas fa-tools"></i>
+            <h1>Work in Progress</h1>
+            <p>The dashboard is currently under construction. Check back soon!</p>
+            <br>
+            <button class="btn" onclick="logout()" style="max-width: 200px; margin: 0 auto;">Logout</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function logout() {
+            localStorage.removeItem('fintech_username');
+            localStorage.removeItem('fintech_user_email');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+
+</html>

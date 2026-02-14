@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="main-container">
+        <!-- Left Side: Visuals for profile flow -->
+        <div class="left-panel">
+            <div class="left-content">
+                <i class="fas fa-user-shield" style="font-size: 50px; margin-bottom: 20px;"></i>
+                <h1>Almost There!</h1>
+                <p>Just one last step to secure your identity and personalize your experience.</p>
+            </div>
+        </div>
+
+        <!-- Right Side: Form -->
+        <div class="right-panel">
+            <div class="logo-small animate delay-1">
+                <i class="fas fa-chart-line"></i> FinSecure
+            </div>
+
+            <div class="header-text animate delay-1">
+                <h2>Set Username</h2>
+                <p>Choose a unique username to be identified by.</p>
+            </div>
+
+            <form id="profileForm">
+                <div class="input-group animate delay-2">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="e.g. crypto_king" required>
+                </div>
+
+                <button type="submit" class="btn animate delay-3">Finish Setup</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
