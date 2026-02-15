@@ -1,4 +1,19 @@
 // Firebase Configuration
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY_HERE", // ⚠️ REPLACE THIS WITH YOUR FIREBASE API KEY FROM PROJECT SETTINGS
+    authDomain: "finwise-dad44.firebaseapp.com",
+    databaseURL: "https://finwise-dad44-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "finwise-dad44",
+    storageBucket: "finwise-dad44.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase
+if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
 const FIREBASE_URL = "https://finwise-dad44-default-rtdb.asia-southeast1.firebasedatabase.app/";
 
 // Helper to sanitize email for use as a Firebase key (Firebase doesn't allow '.', '#', '$', '[', ']')
@@ -7,27 +22,67 @@ function sanitizeEmail(email) {
     return email.replace(/\./g, ',');
 }
 
-// Google Login Simulation
+// Google Login with Firebase Auth
 function googleLogin(action) {
-    alert("Redirecting to Google Authentication...");
-    setTimeout(() => {
-        const dummyEmail = "user_google@example,com";
-        localStorage.setItem('finwise_session_user', dummyEmail);
+    if (typeof firebase === 'undefined') {
+        alert("Firebase SDK not loaded. Please check your internet connection.");
+        return;
+    }
 
-        fetch(`${FIREBASE_URL}/users/${dummyEmail}/profile.json`)
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.firstName) {
-                    window.location.href = 'index.html';
-                } else {
-                    window.location.href = 'profile-setup.html';
-                }
-            })
-            .catch(error => {
-                console.error("Error checking Google user:", error);
-                window.location.href = 'profile-setup.html'; // Default to setup on error
-            });
-    }, 1000);
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+            const user = result.user;
+            const email = user.email;
+            const userKey = sanitizeEmail(email);
+
+            // Store session
+            localStorage.setItem('finwise_session_user', userKey);
+
+            // Check if user exists in DB
+            fetch(`${FIREBASE_URL}/users/${userKey}.json`)
+                .then(res => res.json())
+                .then(existingUser => {
+                    if (existingUser) {
+                        // User exists, go to dashboard
+                        window.location.href = 'index.html';
+                    } else {
+                        // New user, save basic profile
+                        const nameParts = user.displayName ? user.displayName.split(' ') : ["User"];
+                        const firstName = nameParts[0];
+                        const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : "";
+
+                        const newUser = {
+                            email: email,
+                            profile: {
+                                firstName: firstName,
+                                lastName: lastName,
+                                monthlySalary: 0,
+                                totalSavings: 0
+                            },
+                            createdAt: new Date().toISOString()
+                        };
+
+                        fetch(`${FIREBASE_URL}/users/${userKey}.json`, {
+                            method: 'PUT',
+                            body: JSON.stringify(newUser)
+                        }).then(() => {
+                            window.location.href = 'profile-setup.html';
+                        });
+                    }
+                });
+        })
+        .catch((error) => {
+            console.error("Google Login Error:", error);
+            // Handle API Key missing error specifically to allow demo mode fallback if desired, 
+            // or just alert the user.
+            if (error.code === "auth/invalid-api-key") {
+                alert("Configuration Error: Missing Firebase API Key. Please update script.js.");
+            } else {
+                alert("Login Failed: " + error.message);
+            }
+        });
 }
 
 // Handle Forms
