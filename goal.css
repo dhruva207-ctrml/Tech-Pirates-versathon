@@ -1,0 +1,95 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #061C3F, #0B4F9C);
+}
+
+.dashboard {
+    max-width: 1200px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+A
+.header h2 {
+    color: #0B4F9C;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+/* GOALS */
+.goal {
+    margin-bottom: 22px;
+}
+
+.goal-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 0.8fr 0.8fr;
+    gap: 12px;
+    align-items: center;
+}
+
+.goal-row input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+    font-size: 13px;
+}
+
+.goal-name {
+    font-weight: 600;
+}
+
+/* PROGRESS */
+.progress-bar {
+    background: #E2E8F0;
+    border-radius: 20px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 14px;
+    border-radius: 20px;
+    transition: width 0.4s ease;
+}
+
+/* TEXT */
+.small {
+    font-size: 12px;
+    color: #475569;
+    margin-top: 4px;
+}
+
+/* BUTTON */
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #0B4F9C;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* PIE */
+.pie-box {
+    text-align: center;
+}
