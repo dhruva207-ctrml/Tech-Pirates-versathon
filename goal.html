@@ -7,36 +7,87 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="goal.css">
 </head>
 
-<body>
+<body class="dashboard-body">
 
-    <div class="dashboard">
-
-        <div class="header">
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <button onclick="window.location.href='index.html'"
-                    style="background:none; border:none; color:inherit; cursor:pointer;" title="Return to Home"><i
-                        class="fas fa-arrow-left"></i></button>
-                <h2>🎯 Goal-Based Savings</h2>
-            </div>
-            <button onclick="addGoal()">➕ Add New Goal</button>
-        </div>
-
-        <div class="content">
-
-            <!-- GOALS -->
-            <div id="goals"></div>
-
-            <!-- PIE -->
-            <div class="pie-box">
-                <h3>Planned Savings Allocation</h3>
-                <canvas id="pie" width="220" height="220"></canvas>
-                <p class="small">Based on target amounts</p>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar animate delay-1">
+            <div class="logo-section">
+                <div class="logo-main">
+                    <i class="fas fa-wallet"></i>
+                    <span class="logo-text">FinWise</span>
+                </div>
+                <span class="user-welcome">Welcome, User</span>
             </div>
 
-        </div>
+            <ul class="nav-menu">
+                <li class="nav-item" onclick="window.location.href='index.html'">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Home</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='trans.html'">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-text">Transactions</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='budget.html'">
+                    <i class="fas fa-chart-pie"></i>
+                    <span class="nav-text">Budgets</span>
+                </li>
+                <li class="nav-item active" onclick="window.location.href='goal.html'">
+                    <i class="fas fa-bullseye"></i>
+                    <span class="nav-text">Goals</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='analytics.html'">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-text">Analytics</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='tax1.html'">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span class="nav-text">Tax</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='settings.html'">
+                    <i class="fas fa-cog"></i>
+                    <span class="nav-text">Settings</span>
+                </li>
+            </ul>
+
+            <div class="pro-tip animate delay-2">
+                <h5>Pro Tip</h5>
+                <p>Visualize your dreams to reach them faster.</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-area">
+
+            <div class="dashboard" style="margin: 0; max-width: none; padding: 20px;">
+                <div class="header">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <h2 style="margin: 0; color: #0B4F9C;">🎯 Goal-Based Savings</h2>
+                    </div>
+                    <button onclick="addGoal()">➕ Add New Goal</button>
+                </div>
+
+                <div class="content">
+
+                    <!-- GOALS -->
+                    <div id="goals" style="flex: 2.5;"></div>
+
+                    <!-- PIE -->
+                    <div class="pie-box" style="flex: 1;">
+                        <h3>Planned Savings Allocation</h3>
+                        <canvas id="pie" width="220" height="220"></canvas>
+                        <p class="small">Based on target amounts</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
     </div>
 
     <!-- Modal -->
@@ -111,6 +162,7 @@
         </div>
     </div>
 
+    <script src="script.js"></script>
     <script src="goal.js"></script>
 </body>
 

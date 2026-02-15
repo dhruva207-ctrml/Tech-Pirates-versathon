@@ -7,7 +7,7 @@
   --border: #E2E8F0;
   --text-main: #0F172A;
   --text-muted: #64748B;
-  --shadow: 0 30px 60px rgba(0,0,0,0.25);
+  --shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
 }
 
 * {
@@ -19,6 +19,8 @@ body {
   margin: 0;
   background: linear-gradient(135deg, var(--primary-dark), var(--primary));
   color: var(--text-main);
+  /* Fix gradient height issue */
+  min-height: 100vh;
 }
 
 .section {
@@ -42,6 +44,8 @@ body {
 
 .txn-form-card {
   padding: 22px;
+  height: fit-content;
+  /* Ensure it doesn't stretch weirdly */
 }
 
 .txn-form-card h3 {
@@ -109,8 +113,68 @@ body {
   font-weight: 600;
 }
 
-.positive { color: #16A34A; }
-.negative { color: #DC2626; }
+.positive {
+  color: #16A34A;
+}
+
+.negative {
+  color: #DC2626;
+}
+
+/* SEARCH & FILTER BAR */
+.search-filter-bar {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 12px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-input-wrapper input {
+  border: none;
+  background: transparent;
+  padding: 10px;
+  width: 100%;
+  outline: none;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.search-input-wrapper i {
+  color: var(--text-muted);
+}
+
+.filter-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-actions select {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text-main);
+  cursor: pointer;
+  outline: none;
+  font-size: 0.9rem;
+}
 
 /* TABLE */
 .txn-table-card {

@@ -741,7 +741,7 @@ body {
 }
 
 .transactions-widget {
-    background: #0a192f;
+    background: #073b75;
     border-radius: 16px;
     padding: 25px;
     box-shadow: 0 10px 30px -10px rgba(10, 25, 47, 0.3);
@@ -755,7 +755,7 @@ body {
 }
 
 .widget-card {
-    background: #0a192f;
+    background: #073b75;
     padding: 25px;
     border-radius: 16px;
     box-shadow: 0 10px 30px -10px rgba(10, 25, 47, 0.3);

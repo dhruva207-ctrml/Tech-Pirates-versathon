@@ -1,86 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>FinWise | Transactions</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="transactions.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinWise - Transactions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="trans.css">
 </head>
 
-<body>
+<body class="dashboard-body">
 
-<section id="transactions" class="section">
-  <div class="txn-container">
-
-    <!-- ADD TRANSACTION -->
-    <div class="txn-form-card">
-      <h3>➕ Quick Add</h3>
-
-      <form id="txnForm">
-        <div class="txn-row">
-          <select id="txnType">
-            <option value="income">💰 Income</option>
-            <option value="expense">💸 Expense</option>
-          </select>
-          <input type="number" id="txnAmount" placeholder="5,000" min="1" required>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar animate delay-1">
+      <div class="logo-section">
+        <div class="logo-main">
+          <i class="fas fa-wallet"></i>
+          <span class="logo-text">FinWise</span>
         </div>
-
-        <div class="txn-row">
-          <select id="txnCategory">
-            <option>Salary</option>
-            <option>Freelance</option>
-            <option>Food</option>
-            <option>Rent</option>
-            <option>Shopping</option>
-            <option>Transport</option>
-            <option>Invest</option>
-            <option>Others</option>
-          </select>
-          <input type="date" id="txnDate" required>
-        </div>
-
-        <input id="txnNote" placeholder="e.g. Swiggy order">
-        <button class="btn-txn-add">Add Transaction</button>
-      </form>
-
-      <div class="txn-stats">
-        <span class="stat-label">This Month</span>
-        <span class="stat-value" id="monthIncome">₹0</span>
-        <span class="stat-change positive" id="monthBalance">₹0</span>
-      </div>
-    </div>
-
-    <!-- TRANSACTIONS TABLE -->
-    <div class="txn-table-card">
-      <div class="table-header">
-        <h3>Recent Transactions <span id="txnCount">(0)</span></h3>
-        <div class="table-actions">
-          <button id="clearAll" class="btn-clear">🗑️ Clear</button>
-          <button id="exportTxn" class="btn-export">📤 Export</button>
-        </div>
+        <span class="user-welcome">Welcome, User</span>
       </div>
 
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Type</th>
-              <th>Category</th>
-              <th>Amount</th>
-              <th>Note</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="txnTableBody"></tbody>
-        </table>
-      </div>
-    </div>
+      <ul class="nav-menu">
+        <li class="nav-item" onclick="window.location.href='index.html'">
+          <i class="fas fa-home"></i>
+          <span class="nav-text">Home</span>
+        </li>
+        <li class="nav-item active" onclick="window.location.href='trans.html'">
+          <i class="fas fa-exchange-alt"></i>
+          <span class="nav-text">Transactions</span>
+        </li>
+        <li class="nav-item" onclick="window.location.href='budget.html'">
+          <i class="fas fa-chart-pie"></i>
+          <span class="nav-text">Budgets</span>
+        </li>
+        <li class="nav-item" onclick="window.location.href='goal.html'">
+          <i class="fas fa-bullseye"></i>
+          <span class="nav-text">Goals</span>
+        </li>
+        <li class="nav-item" onclick="window.location.href='analytics.html'">
+          <i class="fas fa-chart-line"></i>
+          <span class="nav-text">Analytics</span>
+        </li>
+        <li class="nav-item" onclick="window.location.href='tax1.html'">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <span class="nav-text">Tax</span>
+        </li>
+        <li class="nav-item" onclick="window.location.href='settings.html'">
+          <i class="fas fa-cog"></i>
+          <span class="nav-text">Settings</span>
+        </li>
+      </ul>
 
+      <div class="pro-tip animate delay-2">
+        <h5>Pro Tip</h5>
+        <p>Categorize transactions for better insights.</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-area">
+      <!-- Header Section -->
+      <header style="padding: 0 0 20px 0; display: flex; align-items: center; gap: 15px;">
+        <!-- Removed Back Button since Sidebar is here -->
+        <div>
+          <h2 style="font-size: 28px; color: #0f172a; margin: 0;">Transactions</h2>
+          <p style="font-size: 14px; color: #64748b; margin: 4px 0 0;">Manage your income and expenses</p>
+        </div>
+      </header>
+
+      <section id="transactions" class="section" style="padding: 0;">
+        <div class="txn-container">
+
+          <!-- ADD TRANSACTION -->
+          <div class="txn-form-card">
+            <h3>➕ Quick Add</h3>
+
+            <form id="txnForm">
+              <div class="txn-row">
+                <select id="txnType">
+                  <option value="income">💰 Income</option>
+                  <option value="expense">💸 Expense</option>
+                </select>
+                <input type="number" id="txnAmount" placeholder="5,000" min="1" required>
+              </div>
+
+              <div class="txn-row">
+                <select id="txnCategory">
+                  <option>Salary</option>
+                  <option>Freelance</option>
+                  <option>Food</option>
+                  <option>Rent</option>
+                  <option>Shopping</option>
+                  <option>Transport</option>
+                  <option>Invest</option>
+                  <option>Others</option>
+                </select>
+                <input type="date" id="txnDate" required>
+              </div>
+
+              <input id="txnNote" placeholder="e.g. Swiggy order">
+              <button class="btn-txn-add">Add Transaction</button>
+            </form>
+
+            <div class="txn-stats">
+              <span class="stat-label">This Month</span>
+              <span class="stat-value" id="monthIncome">₹0</span>
+              <span class="stat-change positive" id="monthBalance">₹0</span>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: SEARCH + TABLE -->
+          <div style="display: flex; flex-direction: column; gap: 24px;">
+
+            <!-- SEARCH & FILTER BAR -->
+            <div class="search-filter-bar">
+              <div class="search-input-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search transactions...">
+              </div>
+
+              <div class="filter-actions">
+                <select id="filterType">
+                  <option value="all">All Types</option>
+                  <option value="income">Income</option>
+                  <option value="expense">Expense</option>
+                </select>
+
+                <select id="filterMonth">
+                  <option value="all">All Months</option>
+                  <option value="0">January</option>
+                  <option value="1">February</option>
+                  <option value="2">March</option>
+                  <option value="3">April</option>
+                  <option value="4">May</option>
+                  <option value="5">June</option>
+                  <option value="6">July</option>
+                  <option value="7">August</option>
+                  <option value="8">September</option>
+                  <option value="9">October</option>
+                  <option value="10">November</option>
+                  <option value="11">December</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- TRANSACTIONS TABLE -->
+            <div class="txn-table-card">
+              <div class="table-header">
+                <h3>Recent Transactions <span id="txnCount">(0)</span></h3>
+                <div class="table-actions">
+                  <button id="clearAll" class="btn-clear">🗑️ Clear</button>
+                  <button id="exportTxn" class="btn-export">📤 Export</button>
+                </div>
+              </div>
+
+              <div class="table-wrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>Category</th>
+                      <th>Amount</th>
+                      <th>Note</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="txnTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+          </div> <!-- End Right Column -->
+
+        </div>
+      </section>
+    </main>
   </div>
-</section>
 
-<script src="transactions.js"></script>
+  <script src="script.js"></script> <!-- For Sidebar User Name -->
+  <script src="trans.js"></script>
 </body>
+
 </html>

@@ -8,101 +8,157 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="analytics.css">
 </head>
 
-<body>
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <div class="header-left">
-                <button onclick="window.location.href='index.html'" class="return-btn" title="Return to Dashboard">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <div>
-                    <h1>Analytics</h1>
-                    <p class="subtitle">Insights into your spending patterns</p>
-                </div>
-            </div>
+<body class="dashboard-body">
 
-            <div class="date-filter">
-                <i class="far fa-calendar"></i>
-                <span>All time</span>
-                <i class="fas fa-chevron-down"></i>
-            </div>
-        </header>
-
-        <!-- Stats Cards -->
-        <div class="stats-grid">
-            <!-- Income -->
-            <div class="stat-card">
-                <div class="stat-content">
-                    <div class="label">TOTAL INCOME</div>
-                    <div class="value" id="totalIncome">₹0</div>
-                </div>
-                <div class="stat-icon green">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-            </div>
-
-            <!-- Expenses -->
-            <div class="stat-card">
-                <div class="stat-content">
-                    <div class="label">TOTAL EXPENSES</div>
-                    <div class="value" id="totalExpenses">₹0</div>
-                </div>
-                <div class="stat-icon red">
-                    <i class="fas fa-level-down-alt"></i>
-                </div>
-            </div>
-
-            <!-- Net Savings -->
-            <div class="stat-card">
-                <div class="stat-content">
-                    <div class="label">NET SAVINGS</div>
-                    <div class="value" id="netSavings">₹0</div>
-                    <div class="sub-text" id="savingsRate">0% savings rate</div>
-                </div>
-                <div class="stat-icon blue">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar animate delay-1">
+            <div class="logo-section">
+                <div class="logo-main">
                     <i class="fas fa-wallet"></i>
+                    <span class="logo-text">FinWise</span>
+                </div>
+                <span class="user-welcome">Welcome, User</span>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item" onclick="window.location.href='index.html'">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Home</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='trans.html'">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span class="nav-text">Transactions</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='budget.html'">
+                    <i class="fas fa-chart-pie"></i>
+                    <span class="nav-text">Budgets</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='goal.html'">
+                    <i class="fas fa-bullseye"></i>
+                    <span class="nav-text">Goals</span>
+                </li>
+                <li class="nav-item active" onclick="window.location.href='analytics.html'">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="nav-text">Analytics</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='tax1.html'">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span class="nav-text">Tax</span>
+                </li>
+                <li class="nav-item" onclick="window.location.href='settings.html'">
+                    <i class="fas fa-cog"></i>
+                    <span class="nav-text">Settings</span>
+                </li>
+            </ul>
+
+            <div class="pro-tip animate delay-2">
+                <h5>Pro Tip</h5>
+                <p>Analyze trends to curb unnecessary spending.</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-area">
+
+            <div class="container"
+                style="margin: 0; padding: 0; width: 100%; max-width: none; background: transparent; box-shadow: none;">
+                <!-- Header -->
+                <header
+                    style="padding: 0 0 30px 0; background: transparent; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="header-left">
+                        <div>
+                            <h1 style="color: #0f172a;">Analytics</h1>
+                            <p class="subtitle">Insights into your spending patterns</p>
+                        </div>
+                    </div>
+
+                    <div class="date-filter">
+                        <i class="far fa-calendar"></i>
+                        <span>All time</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </header>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <!-- Income -->
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="label">TOTAL INCOME</div>
+                            <div class="value" id="totalIncome">₹0</div>
+                        </div>
+                        <div class="stat-icon green">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+
+                    <!-- Expenses -->
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="label">TOTAL EXPENSES</div>
+                            <div class="value" id="totalExpenses">₹0</div>
+                        </div>
+                        <div class="stat-icon red">
+                            <i class="fas fa-level-down-alt"></i>
+                        </div>
+                    </div>
+
+                    <!-- Net Savings -->
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="label">NET SAVINGS</div>
+                            <div class="value" id="netSavings">₹0</div>
+                            <div class="sub-text" id="savingsRate">0% savings rate</div>
+                        </div>
+                        <div class="stat-icon blue">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                    </div>
+
+                    <!-- Top Category -->
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="label">TOP CATEGORY</div>
+                            <div class="value" id="topCategory">Housing</div>
+                            <div class="sub-text" id="topCategoryAmount">₹0 spent</div>
+                        </div>
+                        <div class="stat-icon purple">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trend Chart -->
+                <div class="chart-section">
+                    <div class="card-title">Income vs Expenses Trend</div>
+                    <div class="chart-container-large">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Category Chart -->
+                <div class="chart-section">
+                    <div class="card-title">Spending by Category</div>
+                    <div class="chart-container-row">
+                        <div class="pie-wrapper">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                        <div id="categoryLegend" class="chart-legend">
+                            <!-- Legend items injected via JS -->
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Top Category -->
-            <div class="stat-card">
-                <div class="stat-content">
-                    <div class="label">TOP CATEGORY</div>
-                    <div class="value" id="topCategory">Housing</div>
-                    <div class="sub-text" id="topCategoryAmount">₹0 spent</div>
-                </div>
-                <div class="stat-icon purple">
-                    <i class="fas fa-tag"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- Trend Chart -->
-        <div class="chart-section">
-            <div class="card-title">Income vs Expenses Trend</div>
-            <div class="chart-container-large">
-                <canvas id="trendChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Category Chart -->
-        <div class="chart-section">
-            <div class="card-title">Spending by Category</div>
-            <div class="chart-container-row">
-                <div class="pie-wrapper">
-                    <canvas id="categoryChart"></canvas>
-                </div>
-                <div id="categoryLegend" class="chart-legend">
-                    <!-- Legend items injected via JS -->
-                </div>
-            </div>
-        </div>
+        </main>
     </div>
 
+    <script src="script.js"></script>
     <script src="analytics.js"></script>
 </body>
 

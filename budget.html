@@ -7,70 +7,121 @@
   <title>FinWise | Budget Planner</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="budget.css">
 </head>
 
-<body>
+<body class="dashboard-body">
 
-  <div class="dashboard">
-    <!-- Header -->
-    <div class="header">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <button onclick="window.location.href='index.html'" class="return-btn" title="Return to Home">
-          <i class="fas fa-arrow-left"></i>
-        </button>
-        <div>
-          <h1>Budgets</h1>
-          <p class="subtitle">Set spending limits by category</p>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar animate delay-1">
+      <div class="logo-section">
+        <div class="logo-main">
+          <i class="fas fa-wallet"></i>
+          <span class="logo-text">FinWise</span>
         </div>
+        <span class="user-welcome">Welcome, User</span>
       </div>
 
-      <div class="header-actions">
-        <select id="monthSelector" class="month-select">
-          <option value="2026-02">February 2026</option>
-          <option value="2026-03">March 2026</option>
-          <!-- Add more dynamically if needed -->
-        </select>
-        <button class="set-budget-btn" onclick="openBudgetModal()">
-          <i class="fas fa-plus"></i> Set Budget
-        </button>
-      </div>
-    </div>
-
-    <!-- Summary Card -->
-    <div class="summary-card">
-      <div class="summary-item">
-        <div class="icon-box blue">
+      <ul class="nav-menu">
+        <li class="nav-item" onclick="window.location.href='index.html'">
+          <i class="fas fa-home"></i>
+          <span class="nav-text">Home</span>
+        </li>
+        <li class="nav-item" onclick="window.location.href='trans.html'">
+          <i class="fas fa-exchange-alt"></i>
+          <span class="nav-text">Transactions</span>
+        </li>
+        <li class="nav-item active" onclick="window.location.href='budget.html'">
           <i class="fas fa-chart-pie"></i>
-        </div>
-        <div>
-          <span class="label">Total Monthly Budget</span>
-          <div class="value" id="totalBudget">₹0</div>
-        </div>
-      </div>
-      <div class="divider"></div>
-      <div class="summary-item">
-        <div>
-          <span class="label">Spent So Far</span>
-          <div class="value" id="totalSpent">₹0</div>
-        </div>
-      </div>
-      <div class="divider"></div>
-      <div class="summary-item">
-        <div>
-          <span class="label">Remaining</span>
-          <div class="value green" id="totalRemaining">₹0</div>
-        </div>
-      </div>
-    </div>
+          <span class="nav-text">Budgets</span>
+        </li>
+        <li class="nav-item" onclick="window.location.href='goal.html'">
+          <i class="fas fa-bullseye"></i>
+          <span class="nav-text">Goals</span>
+        </li>
+        <li class="nav-item" onclick="window.location.href='analytics.html'">
+          <i class="fas fa-chart-line"></i>
+          <span class="nav-text">Analytics</span>
+        </li>
+        <li class="nav-item" onclick="window.location.href='tax1.html'">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <span class="nav-text">Tax</span>
+        </li>
+        <li class="nav-item" onclick="window.location.href='settings.html'">
+          <i class="fas fa-cog"></i>
+          <span class="nav-text">Settings</span>
+        </li>
+      </ul>
 
-    <!-- Budget Cards Grid -->
-    <div class="budget-grid" id="budgetGrid">
-      <!-- Cards will be injected here -->
-    </div>
+      <div class="pro-tip animate delay-2">
+        <h5>Pro Tip</h5>
+        <p>Set realistic limits to save more.</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-area">
+
+      <div class="dashboard" style="margin: 0; max-width: none; padding: 0;">
+        <!-- Header -->
+        <div class="header">
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <div>
+              <h1 style="font-size: 28px;">Budgets</h1>
+              <p class="subtitle">Set spending limits by category</p>
+            </div>
+          </div>
+
+          <div class="header-actions">
+            <select id="monthSelector" class="month-select">
+              <option value="2026-02">February 2026</option>
+              <option value="2026-03">March 2026</option>
+            </select>
+            <button class="set-budget-btn" onclick="openBudgetModal()">
+              <i class="fas fa-plus"></i> Set Budget
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Card -->
+        <div class="summary-card">
+          <div class="summary-item">
+            <div class="icon-box blue">
+              <i class="fas fa-chart-pie"></i>
+            </div>
+            <div>
+              <span class="label">Total Monthly Budget</span>
+              <div class="value" id="totalBudget">₹0</div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="summary-item">
+            <div>
+              <span class="label">Spent So Far</span>
+              <div class="value" id="totalSpent">₹0</div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="summary-item">
+            <div>
+              <span class="label">Remaining</span>
+              <div class="value green" id="totalRemaining">₹0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Budget Cards Grid -->
+        <div class="budget-grid" id="budgetGrid">
+          <!-- Cards will be injected here -->
+        </div>
+      </div>
+
+    </main>
   </div>
 
-  <!-- Set Budget Modal -->
+  <!-- Set Budget Modal (Outside app-container correctly) -->
   <div id="budgetModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -128,6 +179,7 @@
     </div>
   </div>
 
+  <script src="script.js"></script>
   <script src="budget.js"></script>
 </body>
 

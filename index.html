@@ -35,7 +35,7 @@
                     <i class="fas fa-home"></i>
                     <span class="nav-text">Home</span>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" onclick="window.location.href='trans.html'">
                     <i class="fas fa-exchange-alt"></i>
                     <span class="nav-text">Transactions</span>
                 </li>
@@ -124,9 +124,9 @@
 
                 <!-- Left Column: Transactions -->
                 <div class="transactions-widget">
-                    <div class="section-header">
+                    <div class="section-header" onclick="window.location.href='trans.html'" style="cursor: pointer;">
                         <h3>Recent Transactions</h3>
-                        <i class="fas fa-ellipsis-h" style="color: #999; cursor: pointer;"></i>
+                        <i class="fas fa-external-link-alt" style="color: #999;"></i>
                     </div>
 
                     <div class="transaction-list" id="transactionList">

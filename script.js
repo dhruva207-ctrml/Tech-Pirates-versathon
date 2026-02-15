@@ -395,41 +395,67 @@ function closeFinancialModal() {
 function loadTransactions() {
     const transactionList = document.getElementById('transactionList');
     if (transactionList) {
-        // Dummy Data - In a real app, this would come from an API based on userId
-        const transactions = [
-            { id: 1, name: "Grocery Store", category: "Food & Dining", date: "Today", amount: -1200.50, type: "expense" },
-            { id: 2, name: "Salary Deposit", category: "Income", date: "Yesterday", amount: 50000.00, type: "income" },
-            { id: 3, name: "Electric Bill", category: "Utilities", date: "Feb 14", amount: -8500.00, type: "expense" },
-            { id: 4, name: "Freelance Project", category: "Income", date: "Feb 12", amount: 15000.00, type: "income" },
-            { id: 5, name: "Netflix Subscription", category: "Entertainment", date: "Feb 10", amount: -499.00, type: "expense" }
-        ];
+        // Try to get real transactions from localStorage (shared with trans.js)
+        const storedTxns = localStorage.getItem("finwise_txns");
+        let transactions = [];
+
+        if (storedTxns) {
+            transactions = JSON.parse(storedTxns);
+            // Sort by date descending (newest first)
+            transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+        } else {
+            // Dummy Data Fallback for Demo
+            transactions = [
+                { id: 1, name: "Grocery Store", category: "Food & Dining", date: "Today", amount: 1200.50, type: "expense" },
+                { id: 2, name: "Salary Deposit", category: "Income", date: "Yesterday", amount: 50000.00, type: "income" },
+                { id: 3, name: "Electric Bill", category: "Utilities", date: "Feb 14", amount: 8500.00, type: "expense" },
+                { id: 4, name: "Freelance Project", category: "Income", date: "Feb 12", amount: 15000.00, type: "income" },
+                { id: 5, name: "Netflix Subscription", category: "Entertainment", date: "Feb 10", amount: 499.00, type: "expense" }
+            ];
+        }
+
+        // Limit to 5
+        const recentTransactions = transactions.slice(0, 5);
 
         let html = '';
-        transactions.forEach(t => {
-            const isExpense = t.type === 'expense';
-            const bgClass = isExpense ? 't-bg-red' : 't-bg-green';
-            const textClass = isExpense ? 'text-red' : 'text-green';
-            const icon = isExpense ? 'fa-shopping-bag' : 'fa-wallet';
-            const sign = isExpense ? '-' : '+';
-            const color = isExpense ? '#ef4444' : '#10b981';
+        if (recentTransactions.length === 0) {
+            html = '<p style="text-align: center; color: #999; padding: 20px;">No recent transactions</p>';
+        } else {
+            recentTransactions.forEach(t => {
+                const isExpense = t.type === 'expense';
+                // Handle inconsistency in amount storage (trans.js stores numbers, dummy data was +/-)
+                // trans.js: expenses are just positive numbers with type='expense'
+                const amount = Math.abs(t.amount);
 
-            html += `
-            <div class="transaction-item">
-                <div class="t-left">
-                    <div class="t-icon ${bgClass}">
-                        <i class="fas ${icon}" style="color: ${color}"></i>
+                const bgClass = isExpense ? 't-bg-red' : 't-bg-green';
+                const textClass = isExpense ? 'text-red' : 'text-green';
+                const icon = isExpense ? 'fa-shopping-bag' : 'fa-wallet';
+                const sign = isExpense ? '-' : '+';
+                const color = isExpense ? '#ef4444' : '#10b981';
+
+                // trans.js uses 'note' or 'category' for name. 
+                // t.name might be undefined if coming from trans.js which uses category/note
+                const name = t.note || t.category || "Transaction";
+                const date = t.date || "N/A";
+
+                html += `
+                <div class="transaction-item">
+                    <div class="t-left">
+                        <div class="t-icon ${bgClass}">
+                            <i class="fas ${icon}" style="color: ${color}"></i>
+                        </div>
+                        <div class="t-details">
+                            <h5>${name}</h5>
+                            <p>${t.category} • ${date}</p>
+                        </div>
                     </div>
-                    <div class="t-details">
-                        <h5>${t.name}</h5>
-                        <p>${t.category} • ${t.date}</p>
+                    <div class="t-amount ${textClass}">
+                        ${sign}₹${amount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                     </div>
                 </div>
-                <div class="t-amount ${textClass}">
-                    ${sign}₹${Math.abs(t.amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
-                </div>
-            </div>
-            `;
-        });
+                `;
+            });
+        }
 
         transactionList.innerHTML = html;
     }
