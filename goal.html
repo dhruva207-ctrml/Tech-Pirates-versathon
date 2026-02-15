@@ -1,37 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>FinWise | Goal-Based Savings</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="goal.css">
+<head>
+    <meta charset="UTF-8">
+    <title>FinWise | Goal-Based Savings</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="goal.css">
 </head>
 
 <body>
 
-<div class="dashboard">
+    <div class="dashboard">
 
-    <div class="header">
-        <h2>🎯 Goal-Based Savings</h2>
-        <button onclick="addGoal()">➕ Add New Goal</button>
-    </div>
-
-    <div class="content">
-
-        <!-- GOALS -->
-        <div id="goals"></div>
-
-        <!-- PIE -->
-        <div class="pie-box">
-            <h3>Planned Savings Allocation</h3>
-            <canvas id="pie" width="220" height="220"></canvas>
-            <p class="small">Based on target amounts</p>
+        <div class="header">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <button onclick="window.location.href='index.html'"
+                    style="background:none; border:none; color:inherit; cursor:pointer;" title="Return to Home"><i
+                        class="fas fa-arrow-left"></i></button>
+                <h2>🎯 Goal-Based Savings</h2>
+            </div>
+            <button onclick="addGoal()">➕ Add New Goal</button>
         </div>
 
-    </div>
-</div>
+        <div class="content">
 
-<script src="goal.js"></script>
+            <!-- GOALS -->
+            <div id="goals"></div>
+
+            <!-- PIE -->
+            <div class="pie-box">
+                <h3>Planned Savings Allocation</h3>
+                <canvas id="pie" width="220" height="220"></canvas>
+                <p class="small">Based on target amounts</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="goalModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>New Savings Goal</h2>
+
+            <div class="form-group">
+                <label>Goal Name</label>
+                <input type="text" id="newGoalName" placeholder="e.g., Emergency Fund">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group half">
+                    <label>Target Amount</label>
+                    <div class="input-with-icon">
+                        <span>₹</span>
+                        <input type="number" id="newGoalTarget" placeholder="10,000">
+                    </div>
+                </div>
+                <div class="form-group half">
+                    <label>Current Savings</label>
+                    <div class="input-with-icon">
+                        <span>₹</span>
+                        <input type="number" id="newGoalSaved" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Target Date</label>
+                <input type="date" id="newGoalDate">
+            </div>
+
+            <div class="form-group">
+                <label>Icon</label>
+                <div class="icon-selector" id="iconSelector">
+                    <div class="icon-option selected" data-icon="fas fa-piggy-bank"><i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <div class="icon-option" data-icon="fas fa-home"><i class="fas fa-home"></i></div>
+                    <div class="icon-option" data-icon="fas fa-car"><i class="fas fa-car"></i></div>
+                    <div class="icon-option" data-icon="fas fa-plane"><i class="fas fa-plane"></i></div>
+                    <div class="icon-option" data-icon="fas fa-graduation-cap"><i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="icon-option" data-icon="fas fa-briefcase"><i class="fas fa-briefcase"></i></div>
+                    <div class="icon-option" data-icon="fas fa-heart"><i class="fas fa-heart"></i></div>
+                    <div class="icon-option" data-icon="fas fa-gift"><i class="fas fa-gift"></i></div>
+                    <div class="icon-option" data-icon="fas fa-shield-alt"><i class="fas fa-shield-alt"></i></div>
+                    <div class="icon-option" data-icon="fas fa-star"><i class="fas fa-star"></i></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Color</label>
+                <div class="color-selector" id="colorSelector">
+                    <div class="color-option selected" style="background: #22C55E;" data-color="#22C55E"></div>
+                    <div class="color-option" style="background: #3B82F6;" data-color="#3B82F6"></div>
+                    <div class="color-option" style="background: #A855F7;" data-color="#A855F7"></div>
+                    <div class="color-option" style="background: #F97316;" data-color="#F97316"></div>
+                    <div class="color-option" style="background: #EC4899;" data-color="#EC4899"></div>
+                    <div class="color-option" style="background: #06B6D4;" data-color="#06B6D4"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Notes (optional)</label>
+                <textarea id="newGoalNotes" rows="3"></textarea>
+            </div>
+
+            <button onclick="saveNewGoal()" class="save-btn">Create Goal</button>
+        </div>
+    </div>
+
+    <script src="goal.js"></script>
 </body>
+
 </html>

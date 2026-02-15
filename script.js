@@ -434,3 +434,156 @@ function loadTransactions() {
         transactionList.innerHTML = html;
     }
 }
+
+// Function to load goals into the home page widget from localStorage
+function loadDashboardGoals() {
+    // Strictly find the "Savings Goals" widget only
+    const goalsWidget = Array.from(document.querySelectorAll('.widget-title'))
+        .find(el => el.textContent.trim() === 'Savings Goals')?.parentElement;
+
+    if (!goalsWidget) return;
+
+    const storedGoals = localStorage.getItem('finwise_goals');
+    let goals = [];
+    if (storedGoals) {
+        goals = JSON.parse(storedGoals);
+    }
+
+    // If no goals, keep empty state or ensure it's there
+    if (!goals || goals.length === 0) {
+        // Find if empty state already exists
+        if (!goalsWidget.querySelector('.empty-state')) {
+            // Restore empty state if needed, though usually it's there by default
+            const title = goalsWidget.querySelector('.widget-title');
+            goalsWidget.innerHTML = '';
+            if (title) goalsWidget.appendChild(title);
+            goalsWidget.innerHTML += '<div class="empty-state">No savings goals yet</div>';
+        }
+        return;
+    }
+
+    // Create a mini-list of top goals (limit to 3)
+    const topGoals = goals.slice(0, 3);
+
+    // Clear current content except title
+    const title = goalsWidget.querySelector('.widget-title');
+    goalsWidget.innerHTML = '';
+    if (title) goalsWidget.appendChild(title);
+
+    const listContainer = document.createElement('div');
+    listContainer.style.width = '100%';
+    listContainer.style.marginTop = '15px';
+    listContainer.style.display = 'flex';
+    listContainer.style.flexDirection = 'column';
+    listContainer.style.gap = '15px';
+
+    topGoals.forEach(goal => {
+        const percent = goal.target ? Math.min((goal.saved / goal.target) * 100, 100) : 0;
+        const color = goal.color || '#22C55E';
+        const icon = goal.iconClass || 'fas fa-bullseye';
+
+        listContainer.innerHTML += `
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <div style="width: 36px; height: 36px; background: ${color}20; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: ${color}; font-size: 14px; flex-shrink: 0;">
+                    <i class="${icon}"></i>
+                </div>
+                <div style="flex: 1;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                        <span style="font-size: 13px; font-weight: 500; color: #fff;">${goal.name}</span>
+                        <span style="font-size: 12px; color: #ccc;">${Math.round(percent)}%</span>
+                    </div>
+                    <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+                        <div style="height: 100%; width: ${percent}%; background: ${color}; border-radius: 3px;"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    // Check if we need a "View All" or similar if more goals exist (optional, kept simple for now)
+    goalsWidget.appendChild(listContainer);
+
+    // Adjust widget styling for content vs empty state
+    goalsWidget.style.justifyContent = 'flex-start';
+}
+
+// Function to load budgets into Dashboard widget
+function loadDashboardBudgets() {
+    // Find Budget Widget - strictly by title "Budget Overview"
+    const budgetWidget = Array.from(document.querySelectorAll('.widget-title'))
+        .find(el => el.textContent.trim() === 'Budget Overview')?.parentElement;
+
+    if (!budgetWidget) return;
+
+    const storedBudgets = localStorage.getItem('finwise_budgets');
+    if (!storedBudgets) {
+        if (!budgetWidget.querySelector('.empty-state')) {
+            const title = budgetWidget.querySelector('.widget-title');
+            budgetWidget.innerHTML = '';
+            if (title) budgetWidget.appendChild(title);
+            budgetWidget.innerHTML += '<div class="empty-state">No budgets set for this month</div>';
+        }
+        return;
+    }
+
+    const budgets = JSON.parse(storedBudgets);
+    const currentMonth = new Date().toISOString().slice(0, 7);
+    const monthBudgets = budgets.filter(b => b.month === currentMonth);
+
+    if (monthBudgets.length === 0) {
+        const title = budgetWidget.querySelector('.widget-title');
+        budgetWidget.innerHTML = '';
+        if (title) budgetWidget.appendChild(title);
+        budgetWidget.innerHTML += '<div class="empty-state">No budgets set for this month</div>';
+        return;
+    }
+
+    // Sort by usage percentage desc to show most critical first
+    monthBudgets.sort((a, b) => (b.spent / b.limit) - (a.spent / a.limit));
+
+    // Limit to top 3
+    const topBudgets = monthBudgets.slice(0, 3);
+
+    const title = budgetWidget.querySelector('.widget-title');
+    budgetWidget.innerHTML = '';
+    if (title) budgetWidget.appendChild(title);
+
+    const listContainer = document.createElement('div');
+    listContainer.style.width = '100%';
+    listContainer.style.marginTop = '15px';
+    listContainer.style.display = 'flex';
+    listContainer.style.flexDirection = 'column';
+    listContainer.style.gap = '15px';
+
+    topBudgets.forEach(b => {
+        const percent = Math.min((b.spent / b.limit) * 100, 100);
+        // Map category color or default
+        const categoryColors = {
+            'Housing': '#3b82f6', 'Groceries': '#22c55e', 'Transportation': '#a855f7',
+            'Utilities': '#f59e0b', 'Dining': '#ef4444', 'Entertainment': '#ec4899',
+            'Health': '#06b6d4', 'Shopping': '#8b5cf6', 'Personal': '#14b8a6',
+            'Education': '#f97316', 'Debt': '#ef4444', 'Savings': '#10b981', 'Other': '#64748b'
+        };
+        const color = categoryColors[b.category] || categoryColors['Other'];
+
+        listContainer.innerHTML += `
+            <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px;">
+                    <span style="color: #fff; font-weight: 500;">${b.category}</span>
+                    <span style="color: #ccc;">₹${b.spent.toLocaleString()} / ₹${b.limit.toLocaleString()}</span>
+                </div>
+                <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+                    <div style="height: 100%; width: ${percent}%; background: ${color}; border-radius: 3px;"></div>
+                </div>
+            </div>
+        `;
+    });
+
+    budgetWidget.appendChild(listContainer);
+    budgetWidget.style.justifyContent = 'flex-start';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadDashboardGoals();
+    loadDashboardBudgets();
+});

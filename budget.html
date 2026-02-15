@@ -1,83 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>FinWise | Budget Planner</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="budget.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinWise | Budget Planner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="budget.css">
 </head>
 
 <body>
 
-<div class="dashboard">
+  <div class="dashboard">
+    <!-- Header -->
+    <div class="header">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <button onclick="window.location.href='index.html'" class="return-btn" title="Return to Home">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <div>
+          <h1>Budgets</h1>
+          <p class="subtitle">Set spending limits by category</p>
+        </div>
+      </div>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#0B4F9C" stroke-width="2">
-        <path d="M3 3v18h18"/>
-        <polyline points="6,14 10,10 14,13 18,7"/>
-      </svg>
-      FinWise
+      <div class="header-actions">
+        <select id="monthSelector" class="month-select">
+          <option value="2026-02">February 2026</option>
+          <option value="2026-03">March 2026</option>
+          <!-- Add more dynamically if needed -->
+        </select>
+        <button class="set-budget-btn" onclick="openBudgetModal()">
+          <i class="fas fa-plus"></i> Set Budget
+        </button>
+      </div>
     </div>
-    <strong>📊 Budget Planner</strong>
+
+    <!-- Summary Card -->
+    <div class="summary-card">
+      <div class="summary-item">
+        <div class="icon-box blue">
+          <i class="fas fa-chart-pie"></i>
+        </div>
+        <div>
+          <span class="label">Total Monthly Budget</span>
+          <div class="value" id="totalBudget">₹0</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="summary-item">
+        <div>
+          <span class="label">Spent So Far</span>
+          <div class="value" id="totalSpent">₹0</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="summary-item">
+        <div>
+          <span class="label">Remaining</span>
+          <div class="value green" id="totalRemaining">₹0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Budget Cards Grid -->
+    <div class="budget-grid" id="budgetGrid">
+      <!-- Cards will be injected here -->
+    </div>
   </div>
 
-  <div class="content">
-
-    <!-- LEFT -->
-    <div>
-
-      <div class="income-box">
-        <strong>Total Monthly Income (₹)</strong><br>
-        <input type="number" id="income">
+  <!-- Set Budget Modal -->
+  <div id="budgetModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Set Budget</h2>
+        <span class="close" onclick="closeBudgetModal()">&times;</span>
       </div>
 
-      <div class="category">
-        <div class="category-title">
-          🏠 Fixed Costs
-          <span class="add" onclick="addTask('fixed')">+ Add Task</span>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Category</label>
+          <select id="budgetCategory">
+            <option value="">Select category</option>
+            <option value="Housing">Housing</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Dining">Dining</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Health">Health</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Personal">Personal</option>
+            <option value="Education">Education</option>
+            <option value="Debt">Debt</option>
+            <option value="Savings">Savings</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
-        <div id="fixed"></div>
-      </div>
 
-      <div class="category">
-        <div class="category-title">
-          🛒 Variable Costs
-          <span class="add" onclick="addTask('variable')">+ Add Task</span>
+        <div class="form-group">
+          <label>Monthly Limit</label>
+          <div class="input-with-icon">
+            <span>₹</span>
+            <input type="number" id="budgetLimit" placeholder="0.00">
+          </div>
         </div>
-        <div id="variable"></div>
-      </div>
 
-      <div class="category">
-        <div class="category-title">
-          💳 Debt Payments
-          <span class="add" onclick="addTask('debt')">+ Add Task</span>
+        <div class="form-group">
+          <label>Spent So Far (Optional)</label>
+          <div class="input-with-icon">
+            <span>₹</span>
+            <input type="number" id="budgetSpent" placeholder="0.00">
+          </div>
         </div>
-        <div id="debt"></div>
-      </div>
 
-      <div class="category">
-        <div class="category-title">
-          💰 Savings
-          <span class="add" onclick="addTask('savings')">+ Add Task</span>
+        <div class="form-group">
+          <label>Month</label>
+          <input type="month" id="budgetMonth" value="2026-02">
         </div>
-        <div id="savings"></div>
       </div>
 
+      <div class="modal-footer">
+        <button class="cancel-btn" onclick="closeBudgetModal()">Cancel</button>
+        <button class="confirm-btn" onclick="saveBudget()">Set Budget</button>
+      </div>
     </div>
-
-    <!-- RIGHT -->
-    <div class="pie-box">
-      <h3>Expense Distribution</h3>
-      <canvas id="pie" width="240" height="240"></canvas>
-      <div class="summary" id="summary"></div>
-    </div>
-
   </div>
-</div>
 
-<script src="budget.js"></script>
+  <script src="budget.js"></script>
 </body>
+
 </html>

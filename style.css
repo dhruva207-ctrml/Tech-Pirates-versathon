@@ -781,7 +781,7 @@ body {
 
 /* Override for dark dashboard */
 .dashboard-body .widget-title {
-    color: var(--text-primary);
+    color: var(--white);
 }
 
 .empty-state {
