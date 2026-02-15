@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FinWise | Transactions</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="transactions.css">
+</head>
+
+<body>
+
+<section id="transactions" class="section">
+  <div class="txn-container">
+
+    <!-- ADD TRANSACTION -->
+    <div class="txn-form-card">
+      <h3>➕ Quick Add</h3>
+
+      <form id="txnForm">
+        <div class="txn-row">
+          <select id="txnType">
+            <option value="income">💰 Income</option>
+            <option value="expense">💸 Expense</option>
+          </select>
+          <input type="number" id="txnAmount" placeholder="5,000" min="1" required>
+        </div>
+
+        <div class="txn-row">
+          <select id="txnCategory">
+            <option>Salary</option>
+            <option>Freelance</option>
+            <option>Food</option>
+            <option>Rent</option>
+            <option>Shopping</option>
+            <option>Transport</option>
+            <option>Invest</option>
+            <option>Others</option>
+          </select>
+          <input type="date" id="txnDate" required>
+        </div>
+
+        <input id="txnNote" placeholder="e.g. Swiggy order">
+        <button class="btn-txn-add">Add Transaction</button>
+      </form>
+
+      <div class="txn-stats">
+        <span class="stat-label">This Month</span>
+        <span class="stat-value" id="monthIncome">₹0</span>
+        <span class="stat-change positive" id="monthBalance">₹0</span>
+      </div>
+    </div>
+
+    <!-- TRANSACTIONS TABLE -->
+    <div class="txn-table-card">
+      <div class="table-header">
+        <h3>Recent Transactions <span id="txnCount">(0)</span></h3>
+        <div class="table-actions">
+          <button id="clearAll" class="btn-clear">🗑️ Clear</button>
+          <button id="exportTxn" class="btn-export">📤 Export</button>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Note</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="txnTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="transactions.js"></script>
+</body>
+</html>
