@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaxWise India - Professional Tax Calculator FY 2025-26</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="tax.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="tax1.css">
 </head>
+
 <body>
     <div class="container">
         <header>
+            <button class="return-btn" onclick="window.location.href='index.html'">
+                <i class="fas fa-arrow-left"></i> Return
+            </button>
             <h1>TaxWise India</h1>
             <p>Income Tax + Professional Tax Calculator | FY 2025-26 (AY 2026-27)</p>
         </header>
@@ -75,13 +81,18 @@
                         <canvas id="taxChart" class="tax-chart-container"></canvas>
                     </div>
                 </div>
-                
+
                 <div>
                     <h3>Expense & Tax Summary</h3>
                     <div class="expense-summary">
                         <table class="summary-table">
                             <thead>
-                                <tr><th>Category</th><th>Monthly ₹</th><th>Annual ₹</th><th>%</th></tr>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Monthly ₹</th>
+                                    <th>Annual ₹</th>
+                                    <th>%</th>
+                                </tr>
                             </thead>
                             <tbody id="summaryTable"></tbody>
                         </table>
@@ -108,10 +119,12 @@
         </div>
 
         <div class="disclaimer">
-            Updated FY 2025-26: New Income Tax slabs + State-wise Professional Tax. Farmers exempt from Professional Tax. All amounts in Indian Rupees (₹).
+            Updated FY 2025-26: New Income Tax slabs + State-wise Professional Tax. Farmers exempt from Professional
+            Tax. All amounts in Indian Rupees (₹).
         </div>
     </div>
 
-    <script src="tax.js"></script>
+    <script src="tax1.js"></script>
 </body>
+
 </html>
